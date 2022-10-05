@@ -10,10 +10,14 @@ public class GameBoard {
         hasWon = false;
     }
     public void newGame() {
-         board = new String[3][3];
-        for (int i = 0; i < 3; i++) {
+         board = new String[5][3];
+        for (int i = 0; i < 5; i++) {
             for (int x = 0; x < 3; x++) {
-                board[i][x] = "| - |";
+                if (i ==  1 || i == 3) {
+                    board[i][x] = "--+--";
+                } else {
+                    board[i][x] = "  -  ";
+                }
                 }
             }
         gameAssignPlayer();
@@ -37,9 +41,9 @@ public class GameBoard {
 
 
     public void boardPrinter() {
-        for (int row = 0; row < 3; row++) {
+        for (int row = 0; row < 5; row++) {
             for (int column = 0; column < 3; column++) {
-                System.out.print(board[row][column] + " ");
+                System.out.print(board[row][column]);
             }
             System.out.println();
         }
