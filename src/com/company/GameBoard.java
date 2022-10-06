@@ -158,10 +158,31 @@ public class GameBoard {
         }
         }
     public void checkGame() {
+        checkRow();
         //check if any row or column has three x's
-        for(int row = 0; row < 6; row++) {
-            for (int col = 0; col < 4; col++) {
+        for (int row = 0; row < 6; row++) {
 
+        }
+    }
+    public void checkRow() {
+        for(int row = 0; row < 6; row++) {
+            int xWinRow = 0;
+            int oWinRow = 0;
+            for (int col = 0; col < 4; col++) {
+                if(board[row][col].contains("X")) {
+                    xWinRow++;
+                    if (xWinRow == 3) {
+                        System.out.println(players[0] + " has won!");
+                        hasWon = true;
+                    }
+                }
+                if (board[row][col].contains("O")) {
+                    oWinRow++;
+                    if (oWinRow == 3) {
+                        System.out.println(players[1] + " has won!");
+                        hasWon = true;
+                    }
+                }
             }
         }
     }
