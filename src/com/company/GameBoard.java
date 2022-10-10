@@ -57,33 +57,40 @@ public class GameBoard {
         gameSession();
     }
     public void gameSession() {
-        System.out.println("Your Board:");
-        boardPrinter();
-        int count = 0;
         player1 = true;
-        do {
-            if(player1) {
-                count = 0;
-                System.out.println(players[count] + "'s turn. " + "In put your value in the following format: row column");
-                Scanner sc = new Scanner(System.in);
-                String input = sc.nextLine();
-                checkInput(input);
-                boardPrinter();
+        while(!hasWon) {
+            System.out.println("Your Board:");
+            boardPrinter();
+            int count = 0;
 
-                checkGame();
-                } if (player2) {
-                count = 1;
-                System.out.println(players[count] + "'s turn. " + "In put your value in the following format: row column");
-                Scanner sc = new Scanner(System.in);
-                String input = sc.nextLine();
-                checkInput(input);
-                boardPrinter();
-                checkGame();
-
-                //count++;
+            if (checkGame()) {
+                break;
             }
-            //count = 0;
-        } while(!hasWon);
+                else if (player1) {
+                    count = 0;
+                    System.out.println(players[count] + "'s turn. " + "In put your value in the following format: row column");
+                    Scanner sc = new Scanner(System.in);
+                    String input = sc.nextLine();
+                    checkGame();
+                    checkInput(input);
+                    boardPrinter();
+
+                }
+                else if (player2) {
+                    count = 1;
+                    System.out.println(players[count] + "'s turn. " + "In put your value in the following format: row column");
+                    Scanner sc = new Scanner(System.in);
+                    String input = sc.nextLine();
+                    checkGame();
+                    checkInput(input);
+                    boardPrinter();
+
+
+                    //count++;
+                }
+        }
+
+            //count = 0
 
     }
 
@@ -158,11 +165,10 @@ public class GameBoard {
             System.out.println("This value has already been placed, try again.");
         }
     }
-    public void checkGame() {
-        checkRow();
-        checkColumn();
+    public boolean checkGame() {
+        return checkColumn() || checkRow();
     }
-    public void checkRow() {
+    public boolean checkRow() {
         for(int row = 0; row < 6; row++) {
             int xWinRow = 0;
             int oWinRow = 0;
@@ -172,6 +178,7 @@ public class GameBoard {
                     if (xWinRow == 3) {
                         System.out.println(players[0] + " has won!");
                         hasWon = true;
+                        return true;
                     }
                 }
                 if (board[row][col].contains("O")) {
@@ -179,13 +186,14 @@ public class GameBoard {
                     if (oWinRow == 3) {
                         System.out.println(players[1] + " has won!");
                         hasWon = true;
-                        //hasWon = true;
+                        return true;
                     }
                 }
             }
         }
+        return false;
     }
-    public void checkColumn() {
+    public boolean checkColumn() {
         for(int row = 0; row < 4; row++) {
             int xWinCol = 0;
             int oWinCol = 0;
@@ -195,6 +203,7 @@ public class GameBoard {
                     if (xWinCol == 3) {
                         System.out.println(players[0] + " has won!");
                         hasWon = true;
+                        return true;
                         //hasWon = true;
                     }
                 }
@@ -203,10 +212,15 @@ public class GameBoard {
                     if (oWinCol == 3) {
                         System.out.println(players[1] + " has won!");
                         hasWon = true;
+                        return true;
                     }
                 }
 
             }
         }
+        return false;
+    }
+    public void checkDiagnol() {
+
     }
 }
