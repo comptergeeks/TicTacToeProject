@@ -1,5 +1,4 @@
 package com.company;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class GameBoard {
@@ -166,7 +165,7 @@ public class GameBoard {
         }
     }
     public boolean checkGame() {
-        return checkColumn() || checkRow();
+        return checkColumn() || checkRow() || checkDiagnol() || checkTie() ;
     }
     public boolean checkRow() {
         for(int row = 0; row < 6; row++) {
@@ -220,7 +219,43 @@ public class GameBoard {
         }
         return false;
     }
-    public void checkDiagnol() {
-
+    public boolean checkDiagnol() {
+        if (board[1][1].contains("X") && board[3][2].contains("X") && board[5][3].contains("X")) {
+            System.out.println(players[0] + " has won!");
+            hasWon = true;
+            return true;
+        }
+        if (board[1][1].contains("O") && board[3][2].contains("O") && board[5][3].contains("O")) {
+            System.out.println(players[1] + " has won!");
+            hasWon = true;
+            return true;
+        }
+        if (board[1][3].contains("X") && board[3][2].contains("X") && board[5][1].contains("X")) {
+            System.out.println(players[0] + " has won!");
+            hasWon = true;
+            return true;
+        }
+        if (board[1][3].contains("O") && board[3][2].contains("O") && board[5][1].contains("O")) {
+            System.out.println(players[1] + " has won!");
+            hasWon = true;
+            return true;
+        }
+        return false;
+    }
+    public boolean checkTie() {
+        int count = 0;
+        for (int row = 0; row < 6; row++) {
+            for(int col = 0; col < 4; col++) {
+                if (board[row][col].contains("X") || board[row][col].contains("O")) {
+                    count++;
+                }
+            }
+        }
+        if (count == 9) {
+            System.out.println("There is a tie!");
+            hasWon = true;
+            return true;
+        }
+        return false;
     }
 }
