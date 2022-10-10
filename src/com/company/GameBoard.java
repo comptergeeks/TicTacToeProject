@@ -13,7 +13,7 @@ public class GameBoard {
     }
     public void createBoard() {
         int count2 = 0;
-         board = new String[6][4];
+        board = new String[6][4];
         for (int i = 0; i < 6; i++) {
             int count = 0;
             for (int x = 0; x < 4; x++) {
@@ -35,8 +35,8 @@ public class GameBoard {
                 else {
                     board[i][x] = "  -  ";
                 }
-                }
             }
+        }
         gameAssignPlayer();
 
     }
@@ -61,7 +61,7 @@ public class GameBoard {
         boardPrinter();
         int count = 0;
         player1 = true;
-        while(!hasWon) {
+        do {
             if(player1) {
                 count = 0;
                 System.out.println(players[count] + "'s turn. " + "In put your value in the following format: row column");
@@ -70,8 +70,7 @@ public class GameBoard {
                 checkInput(input);
                 boardPrinter();
                 checkGame();
-                //count++;
-            } if (player2) {
+                } if (player2) {
                 count = 1;
                 System.out.println(players[count] + "'s turn. " + "In put your value in the following format: row column");
                 Scanner sc = new Scanner(System.in);
@@ -79,10 +78,11 @@ public class GameBoard {
                 checkInput(input);
                 boardPrinter();
                 checkGame();
+
                 //count++;
             }
             //count = 0;
-        }
+        } while(!hasWon);
 
     }
 
@@ -107,10 +107,10 @@ public class GameBoard {
         for (int i = 0; i < s.length(); i++) {
             if (sc.hasNextInt()) {
                 howManyValues++;
-               int temp = sc.nextInt();
-               if (temp > 3|| temp < 1 ) {
-                   range++;
-               }
+                int temp = sc.nextInt();
+                if (temp > 3|| temp < 1 ) {
+                    range++;
+                }
             }
         }
         Scanner s2 = new Scanner(s);
@@ -156,13 +156,10 @@ public class GameBoard {
         } else {
             System.out.println("This value has already been placed, try again.");
         }
-        }
+    }
     public void checkGame() {
         checkRow();
-        //check if any row or column has three x's
-        for (int row = 0; row < 6; row++) {
-
-        }
+        checkColumn();
     }
     public void checkRow() {
         for(int row = 0; row < 6; row++) {
@@ -181,8 +178,33 @@ public class GameBoard {
                     if (oWinRow == 3) {
                         System.out.println(players[1] + " has won!");
                         hasWon = true;
+                        //hasWon = true;
                     }
                 }
+            }
+        }
+    }
+    public void checkColumn() {
+        for(int row = 0; row < 4; row++) {
+            int xWinCol = 0;
+            int oWinCol = 0;
+            for (int col = 0; col < 6; col++) {
+                if(board[col][row].contains("X")) {
+                    xWinCol++;
+                    if (xWinCol == 3) {
+                        System.out.println(players[0] + " has won!");
+                        hasWon = true;
+                        //hasWon = true;
+                    }
+                }
+                if (board[col][row].contains("O")) {
+                    oWinCol++;
+                    if (oWinCol == 3) {
+                        System.out.println(players[1] + " has won!");
+                        hasWon = true;
+                    }
+                }
+
             }
         }
     }
