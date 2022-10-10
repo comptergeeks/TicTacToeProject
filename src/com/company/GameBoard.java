@@ -69,6 +69,7 @@ public class GameBoard {
                 String input = sc.nextLine();
                 checkInput(input);
                 boardPrinter();
+
                 checkGame();
                 } if (player2) {
                 count = 1;
